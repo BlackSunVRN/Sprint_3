@@ -1,13 +1,12 @@
 package ru.yandex.practicum.scooter.api.model;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.commons.lang3.RandomUtils;
 
 import java.util.Random;
 
-public class Order {
+public class MakeOrder {
 
-    public Order(String firstName, String lastName, String address, String metroStation, String phone, int rentTime, String deliveryDate, String comment, String[] color) {
+    public MakeOrder(String firstName, String lastName, String address, String metroStation, String phone, int rentTime, String deliveryDate, String comment, String[] color) {
     }
 
     public static String generatePhoneNumber(){
@@ -27,7 +26,7 @@ public class Order {
         return phoneNumber = "7" + set1 + set2 + set3;
     }
 
-    public static Order createOrder(String[] color) {
+    public static MakeOrder createOrder(String[] color) {
         String firstName = RandomStringUtils.randomAlphabetic(7);
         String lastName = RandomStringUtils.randomAlphabetic(7);
         String address = RandomStringUtils.randomAlphabetic(15);
@@ -37,6 +36,6 @@ public class Order {
         String metroStation = Integer.toString(generator.nextInt(50));
         String deliveryDate = "2022-" + Integer.toString(generator.nextInt(11)+1) + "-" + Integer.toString(generator.nextInt(29)+1);
         String comment = RandomStringUtils.randomAlphabetic(15);
-        return new Order(firstName,lastName,address, metroStation, phone, rentTime, deliveryDate, comment, color);
+        return new MakeOrder(firstName,lastName,address, metroStation, phone, rentTime, deliveryDate, comment, color);
     }
 }

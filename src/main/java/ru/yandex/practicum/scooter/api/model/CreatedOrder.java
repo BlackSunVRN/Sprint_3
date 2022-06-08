@@ -1,19 +1,29 @@
 package ru.yandex.practicum.scooter.api.model;
 
-public class OrderList {
-    private int id;
-    private String firstName;
-    private String lastName;
-    private String address;
-    private String phone;
-    private int rentTime;
-    private String deliveryDate;
+import java.util.Date;
+import java.util.List;
 
-    public int getId() {
+public class CreatedOrder {
+    public Integer id;
+    public String firstName;
+    public String lastName;
+    public String address;
+    public String metroStation;
+    public String phone;
+    public Integer rentTime;
+    public Date deliveryDate;
+    public Integer track;
+    public List<String> color;
+    public String comment;
+    public Date createdAt;
+    public Date updatedAt;
+    public Integer status;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -41,6 +51,14 @@ public class OrderList {
         this.address = address;
     }
 
+    public String getMetroStation() {
+        return metroStation;
+    }
+
+    public void setMetroStation(String metroStation) {
+        this.metroStation = metroStation;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -49,20 +67,36 @@ public class OrderList {
         this.phone = phone;
     }
 
-    public int getRentTime() {
+    public Integer getRentTime() {
         return rentTime;
     }
 
-    public void setRentTime(int rentTime) {
+    public void setRentTime(Integer rentTime) {
         this.rentTime = rentTime;
     }
 
-    public String getDeliveryDate() {
+    public Date getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(String deliveryDate) {
+    public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
+    }
+
+    public Integer getTrack() {
+        return track;
+    }
+
+    public void setTrack(Integer track) {
+        this.track = track;
+    }
+
+    public List<String> getColor() {
+        return color;
+    }
+
+    public void setColor(List<String> color) {
+        this.color = color;
     }
 
     public String getComment() {
@@ -73,70 +107,27 @@ public class OrderList {
         this.comment = comment;
     }
 
-    public String[] getColor() {
-        return color;
-    }
-
-    public void setColor(String[] color) {
-        this.color = color;
-    }
-
-    public int getTrack() {
-        return track;
-    }
-
-    public void setTrack(int track) {
-        this.track = track;
-    }
-
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public String getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(String updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    private String comment;
-    private String[] color;
-    private int track;
-    private String createdAt;
-    private String updatedAt;
-    private int status;
-
-    public OrderList(int id, String firstName, String lastName, String address, String phone, int rentTime, String deliveryDate, String comment, String[] color, int track, String createdAt, String updatedAt, int status) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.phone = phone;
-        this.rentTime = rentTime;
-        this.deliveryDate = deliveryDate;
-        this.comment = comment;
-        this.color = color;
-        this.track = track;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.status = status;
-    }
-
-    public OrderList() {
-
     }
 }
