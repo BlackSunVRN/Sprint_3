@@ -7,10 +7,10 @@ import io.restassured.specification.RequestSpecification;
 
 public class BaseApiClient {
 
-    public static final String BASE_URL = "http://qa-scooter.praktikum-services.ru";
-
     public static RequestSpecification getRequestSpecification() {
-        return new RequestSpecBuilder().log(LogDetail.ALL)
+        return new RequestSpecBuilder()
+                .setBaseUri("http://qa-scooter.praktikum-services.ru")
+                .log(LogDetail.ALL)
                 .setContentType(ContentType.JSON).build();
     }
 }

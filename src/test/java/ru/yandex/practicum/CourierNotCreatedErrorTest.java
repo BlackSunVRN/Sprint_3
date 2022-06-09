@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 import ru.yandex.practicum.scooter.api.CourierClient;
 import ru.yandex.practicum.scooter.api.model.Courier;
-import ru.yandex.practicum.scooter.api.model.CourierCredentials;
 
 import static org.apache.http.HttpStatus.*;
 import static org.junit.Assert.assertEquals;
@@ -30,8 +29,7 @@ public class CourierNotCreatedErrorTest {
 
     @Test
     public void courierLoginUnregistered() {
-        CourierCredentials courierCredentials = new CourierCredentials(RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic(10));
-        Response responseLogin = courierClient.login(courierCredentials);
+        Response responseLogin = courierClient.login(RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic(10));
         assertEquals(SC_NOT_FOUND, responseLogin.statusCode());
         String errorText = responseLogin.body().jsonPath().getString("message");
         assertEquals("Учетная запись не найдена", errorText);

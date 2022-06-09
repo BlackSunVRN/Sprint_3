@@ -14,13 +14,13 @@ public class OrderClient extends BaseApiClient{
                 .spec(getRequestSpecification())
                 .body(order)
                 .when()
-                .post(BASE_URL + "/api/v1/orders");
+                .post("/api/v1/orders");
     }
 
     public List<CreatedOrder> getOrderList() {
         return given()
                 .spec(getRequestSpecification())
-                .get(BASE_URL + "/api/v1/orders")
+                .get("/api/v1/orders")
                 .then().log().all()
                 .extract()
                 .body().jsonPath().getList("orders",CreatedOrder.class);

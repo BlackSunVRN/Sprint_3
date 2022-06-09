@@ -14,6 +14,11 @@ public class Courier {
         this.firstName = firstName;
     }
 
+    public Courier(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
+
     public static Courier getRandomCourier() {
         String login = RandomStringUtils.randomAlphabetic(10);
         String password = RandomStringUtils.randomAlphabetic(10);

@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import ru.yandex.practicum.scooter.api.OrderClient;
+import ru.yandex.practicum.scooter.api.OrderGenerator;
 import ru.yandex.practicum.scooter.api.model.MakeOrder;
 import ru.yandex.practicum.scooter.api.model.OrderCreateResponse;
 
@@ -32,7 +33,7 @@ public class CreateOrderTest {
 
     @Test
     public void createOrderTest() {
-        MakeOrder order = MakeOrder.createOrder(color);
+        MakeOrder order = OrderGenerator.generateOrder(color);
         OrderClient orderClient = new OrderClient();
         Response responseCreate = orderClient.createOrder(order);
         assertEquals(SC_CREATED, responseCreate.statusCode());

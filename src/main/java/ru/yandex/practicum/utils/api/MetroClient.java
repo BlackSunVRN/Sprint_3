@@ -1,8 +1,10 @@
-package ru.yandex.practicum.scooter.api;
+package ru.yandex.practicum.utils.api;
+
+import ru.yandex.practicum.scooter.api.BaseApiClient;
 
 import static io.restassured.RestAssured.given;
 
-public class MetroClient extends BaseApiClient{
+public class MetroClient extends BaseApiClient {
 
     public String searchMetro(String metroStation) {
         return given()

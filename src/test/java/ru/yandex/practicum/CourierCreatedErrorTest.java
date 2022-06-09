@@ -2,11 +2,11 @@ package ru.yandex.practicum;
 
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.yandex.practicum.scooter.api.CourierClient;
 import ru.yandex.practicum.scooter.api.model.Courier;
-import ru.yandex.practicum.scooter.api.model.CourierCredentials;
 
 import static org.apache.http.HttpStatus.*;
 import static org.junit.Assert.assertEquals;
@@ -25,21 +25,21 @@ public class CourierCreatedErrorTest {
         courier = getRandomCourier();
     }
 
+    @After
+    public void clear() {
+        courierId = courierClient.getCourierId(courier.getLogin(), courier.getPassword());
+        courierClient.deleteCourier(courierId);
+    }
+
     @Test
     public void courierLoginWithoutPassword() {
         Response responseCreate = courierClient.createCourier(courier);
         assertEquals(SC_CREATED, responseCreate.statusCode());
 
-        CourierCredentials courierCredentials = new CourierCredentials(courier.getLogin(), "");
-        Response responseLogin = courierClient.login(courierCredentials);
+        Response responseLogin = courierClient.login(courier.getLogin(), "");
         assertEquals(SC_BAD_REQUEST, responseLogin.statusCode());
         String errorText = responseLogin.body().jsonPath().getString("message");
         assertEquals("Недостаточно данных для входа", errorText);
-
-        CourierCredentials courierCredentialsCorrect = new CourierCredentials(courier.getLogin(), courier.getPassword());
-        courierId = courierClient.getCourierId(courierCredentialsCorrect);
-
-        courierClient.deleteCourier(courierId);
     }
 
     @Test
@@ -47,15 +47,9 @@ public class CourierCreatedErrorTest {
         Response responseCreate = courierClient.createCourier(courier);
         assertEquals(SC_CREATED, responseCreate.statusCode());
 
-        CourierCredentials courierCredentials = new CourierCredentials(courier.getLogin(), RandomStringUtils.randomAlphabetic(10));
-        Response responseLogin = courierClient.login(courierCredentials);
+        Response responseLogin = courierClient.login(courier.getLogin(), RandomStringUtils.randomAlphabetic(10));
         assertEquals(SC_NOT_FOUND, responseLogin.statusCode());
         String errorText = responseLogin.body().jsonPath().getString("message");
         assertEquals("Учетная запись не найдена", errorText);
-
-        CourierCredentials courierCredentialsCorrect = new CourierCredentials(courier.getLogin(), courier.getPassword());
-        courierId = courierClient.getCourierId(courierCredentialsCorrect);
-
-        courierClient.deleteCourier(courierId);
     }
 }

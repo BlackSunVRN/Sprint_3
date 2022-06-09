@@ -2,7 +2,6 @@ package ru.yandex.practicum.scooter.api;
 
 import io.restassured.response.Response;
 import ru.yandex.practicum.scooter.api.model.Courier;
-import ru.yandex.practicum.scooter.api.model.CourierCredentials;
 
 import static io.restassured.RestAssured.given;
 
@@ -14,36 +13,38 @@ public class CourierClient extends BaseApiClient {
                 .spec(getRequestSpecification())
                 .body(courier)
                 .when()
-                .post(BASE_URL + "/api/v1/courier");
+                .post("/api/v1/courier");
     }
 
-    public Response login(CourierCredentials courierCredentials) {
+    public Response login(String login, String password) {
+        Courier courier = new Courier(login, password);
         return given()
                 .spec(getRequestSpecification())
-                .body(courierCredentials)
+                .body(courier)
                 .when()
-                .post(BASE_URL + "/api/v1/courier/login");
+                .post("/api/v1/courier/login");
     }
 
     public Response deleteCourier(int courierId) {
         return given()
                 .spec(getRequestSpecification())
                 .when()
-                .delete(BASE_URL + "/api/v1/courier/" + courierId);
+                .delete("/api/v1/courier/" + courierId);
     }
     public Response deleteCourierNull() {
         return given()
                 .spec(getRequestSpecification())
                 .when()
-                .delete(BASE_URL + "/api/v1/courier" + null);
+                .delete("/api/v1/courier/");
     }
 
-    public int getCourierId(CourierCredentials courierCredentials) {
+    public int getCourierId(String login, String password) {
+        Courier courier = new Courier(login, password);
         return given()
                 .spec(getRequestSpecification())
-                .body(courierCredentials)
+                .body(courier)
                 .when()
-                .post(BASE_URL + "/api/v1/courier/login")
+                .post("/api/v1/courier/login")
                 .jsonPath()
                 .getInt("id");
     }

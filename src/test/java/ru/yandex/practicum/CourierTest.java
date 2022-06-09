@@ -18,13 +18,17 @@ public class CourierTest {
     Courier courier;
 
     CourierClient courierClient;
-    CourierCredentials courierCredentials;
 
     @Before
     public void init() {
         courier = getRandomCourier();
         courierClient = new CourierClient();
-        courierCredentials = new CourierCredentials(courier.getLogin(), courier.getPassword());
+    }
+
+    @After
+    public void clear() {
+        courierId = courierClient.getCourierId(courier.getLogin(), courier.getPassword());
+        courierClient.deleteCourier(courierId);
     }
 
     @Test
@@ -37,7 +41,7 @@ public class CourierTest {
         assertTrue(createCourierResponse.ok);
 
         //Доп. проверка для входа в созданную учетную запись
-        Response responseLogin = courierClient.login(courierCredentials);
+        Response responseLogin = courierClient.login(courier.getLogin(), courier.getPassword());
         assertEquals(SC_OK, responseLogin.statusCode());
     }
 
@@ -46,9 +50,9 @@ public class CourierTest {
         Response responseCreate = courierClient.createCourier(courier);
 
         assertEquals(SC_CREATED, responseCreate.statusCode());
-        Response responseLogin = courierClient.login(courierCredentials);
+        Response responseLogin = courierClient.login(courier.getLogin(), courier.getPassword());
         assertEquals(SC_OK, responseLogin.statusCode());
-        courierId = courierClient.getCourierId(courierCredentials);
+        courierId = courierClient.getCourierId(courier.getLogin(), courier.getPassword());
         responseLogin
                 .then()
                 .assertThat()
@@ -79,11 +83,5 @@ public class CourierTest {
         assertEquals(SC_CONFLICT, responseCreateSame.statusCode());
         //В документации отсутствует второе предложение. Добавил для прохождения текста фактическое
         assertEquals("Этот логин уже используется. Попробуйте другой.", responseCreateSame.body().jsonPath().getString("message"));
-    }
-
-    @After
-    public void clear() {
-        courierId = courierClient.getCourierId(courierCredentials);
-        courierClient.deleteCourier(courierId);
     }
 }
