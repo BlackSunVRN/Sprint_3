@@ -8,7 +8,7 @@ public class MetroClient extends BaseApiClient{
         return given()
                 .spec(getRequestSpecification())
                 .when()
-                .get(BASE_URL + "/v1/stations/search?s=" + metroStation)
+                .get("/v1/stations/search?s=" + metroStation)
                 .body().jsonPath().getString("number");
     }
 }
